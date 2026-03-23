@@ -1,0 +1,190 @@
+/* src/styles/quiz.css */
+
+.quiz-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* HUD (Heads Up Display) */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: var(--neon-blue);
+  background: rgba(0,0,0,0.3);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+}
+
+.streak-flame {
+  color: orange;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px red;
+  animation: pulse 1s infinite;
+}
+
+.question-card {
+  background: var(--glass);
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--neon-blue);
+  color: white;
+  padding: 20px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: rgba(0, 243, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Feedback Colors */
+.option-btn.correct {
+  background: var(--neon-green) !important;
+  color: black;
+  box-shadow: 0 0 15px var(--neon-green);
+  border-color: transparent;
+}
+
+.option-btn.wrong {
+  background: #ff4757 !important;
+  color: white;
+  animation: shake 0.4s;
+}
+
+/* Animations */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.8; } }
+
+.game-over { margin-top: 100px; }
+.action-btn {
+  background: var(--neon-purple);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--neon-purple);
+  margin-right: 10px;
+}
+.secondary-btn {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
+/* src/styles/quiz.css - Add these new styles */
+
+.element-strip {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  padding: 15px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+  backdrop-filter: blur(5px);
+  transition: box-shadow 0.2s;
+}
+
+.element-strip:active {
+  cursor: grabbing;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.strip-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.strip-symbol {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--neon-blue);
+  width: 40px;
+}
+
+.strip-name {
+  font-size: 1rem;
+  color: white;
+}
+
+.strip-right {
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.3);
+}
+
+.glow-green {
+  background: rgba(10, 255, 10, 0.2) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(10, 255, 10, 0.3);
+}
+
+.success-msg {
+  color: var(--neon-green);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px currentColor;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); background: rgba(255, 0, 0, 0.2); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+/* Apply it when the status is 'wrong' */
+.element-strip.shake {
+  animation: shake 0.4s ease-in-out;
+  border-color: #ff4757; /* Red Border */
+  color: #ff4757;
+}
+
+/* Success State */
+.element-strip.glow-green {
+  background: rgba(10, 255, 10, 0.2) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(10, 255, 10, 0.3);
+  transition: all 0.5s ease;
+}

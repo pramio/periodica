@@ -1,0 +1,385 @@
+/* src/styles/global.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+:root {
+  --bg-dark: #0f172a;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --neon-blue: #00f3ff;
+  --neon-purple: #bc13fe;
+  --neon-green: #0aff0a;
+  --text-main: #ffffff;
+}
+
+body {
+  margin: 0; padding: 0;
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(circle at 50% 50%, #1a2342 0%, #000000 100%);
+  color: var(--text-main);
+  font-family: 'Roboto', sans-serif;
+  height: 100vh; width: 100vw;
+  overflow: hidden; 
+}
+
+h1, h2, h3, .symbol { font-family: 'Orbitron', sans-serif; }
+
+/* --- APP LAYOUT --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- HEADER --- */
+.main-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 50;
+}
+
+.header-left { display: flex; align-items: center; gap: 20px; }
+
+.logo-text {
+  font-size: 1.5rem; margin: 0;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px rgba(0,243,255,0.4);
+}
+
+.nav-controls { display: flex; gap: 10px; }
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: #aaa;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background: var(--neon-blue);
+  color: #000;
+  box-shadow: 0 0 10px var(--neon-blue);
+  border-color: transparent;
+}
+
+.search-input {
+  width: 250px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--neon-blue);
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  outline: none;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* --- MAIN TABLE AREA --- */
+main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
+
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0.3vmin;
+  width: 95vw;
+  height: 52.7vw;
+  max-height: 70vh;
+  max-width: 130vh;
+}
+
+/* --- BOTTOM BAR (Filters) --- */
+.bottom-bar {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  border-top: 1px solid var(--glass-border);
+  overflow-x: auto;
+  padding: 0 10px;
+}
+
+.filter-group { display: flex; gap: 8px; }
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: #aaa;
+  padding: 6px 14px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-family: 'Roboto', sans-serif;
+}
+
+.filter-btn.active {
+  background: var(--neon-green);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--neon-green);
+  border-color: transparent;
+}
+
+/* --- ELEMENT CARDS --- */
+.element-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  position: relative; cursor: pointer; transition: transform 0.2s;
+  font-size: 1.5vmin;
+}
+.element-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--neon-blue);
+  transform: scale(1.5);
+  z-index: 50;
+  box-shadow: 0 0 15px var(--neon-blue);
+}
+.element-card .number { font-size: 0.6em; position: absolute; top: 2px; left: 2px; opacity: 0.6; }
+.element-card .symbol { font-size: 1.8em; font-weight: bold; text-shadow: 0 0 5px currentColor; margin: 0; line-height: 1; }
+.element-card .name { font-size: 0.45em; text-transform: uppercase; max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+.element-card.dimmed { opacity: 0.1; filter: grayscale(100%); transform: scale(0.95); pointer-events: none; }
+
+/* Category Colors */
+.alkali-metal { color: #ff6b6b; border-color: #ff6b6b; }
+.noble-gas { color: #bc13fe; border-color: #bc13fe; }
+.nonmetal { color: #00f3ff; border-color: #00f3ff; }
+.alkaline-earth { color: #ffe66d; border-color: #ffe66d; }
+.metalloid { color: #54a0ff; border-color: #54a0ff; }
+.halogen { color: #0aff0a; border-color: #0aff0a; }
+.transition { color: #ff9f43; border-color: #ff9f43; }
+.post-transition { color: #fab1a0; border-color: #fab1a0; }
+
+/* --- MODALS --- */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); z-index: 100; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.modal-content { background: #1e293b; width: 90%; max-width: 500px; border-radius: 15px; border: 1px solid var(--neon-blue); padding: 20px; position: relative; box-shadow: 0 0 40px rgba(0, 243, 255, 0.2); animation: slideUp 0.3s ease-out; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
+.close-btn { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+.data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.data-item strong { display: block; color: var(--neon-blue); font-size: 0.8rem; }
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* --- SPLASH SCREEN --- */
+.splash-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-dark); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+.splash-container.fade-out { opacity: 0; pointer-events: none; }
+.splash-title { font-family: 'Orbitron', sans-serif; font-size: 3rem; color: var(--neon-blue); margin-top: 30px; text-shadow: 0 0 20px var(--neon-blue); letter-spacing: 5px; animation: slideUp 0.8s ease-out; }
+.splash-subtitle { color: #aaa; letter-spacing: 2px; font-size: 0.9rem; margin-top: 10px; }
+.atom-loader { position: relative; width: 100px; height: 100px; }
+.nucleus { position: absolute; top: 45%; left: 45%; width: 10%; height: 10%; background: white; border-radius: 50%; box-shadow: 0 0 15px white; }
+.electron { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid rgba(0, 243, 255, 0.3); border-top: 2px solid var(--neon-blue); animation: spin 1s linear infinite; }
+.e2 { animation: spin 1.5s linear infinite; transform: rotate(45deg); width: 80%; height: 80%; top: 10%; left: 10%; }
+.e3 { animation: spin 2s linear infinite; transform: rotate(90deg); width: 60%; height: 60%; top: 20%; left: 20%; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ========================================= */
+/* QUANTUM ACADEMY (LEARN MODE)         */
+/* ========================================= */
+
+.academy-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(circle at center, #0f1020, #000);
+  overflow: hidden;
+  position: absolute; /* Ensures it overlays everything */
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+}
+
+.academy-nav {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(0,0,0,0.8);
+  border-bottom: 1px solid var(--neon-blue);
+  z-index: 20;
+}
+
+.mode-btn {
+  background: transparent;
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  transition: 0.3s;
+}
+
+.mode-btn.active, .mode-btn:hover {
+  background: var(--neon-blue);
+  color: black;
+  box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* --- QUANTUM BUILDER LAYOUT --- */
+.builder-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr 300px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.panel-left, .panel-right {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+.panel-right { border-left: 1px solid rgba(255,255,255,0.1); border-right: none; }
+
+.orb-btn {
+  background: rgba(255,255,255,0.05); border: 1px solid #555; color: #fff; padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border-radius: 5px;
+}
+.orb-btn:hover { background: rgba(0,243,255,0.2); border-color: var(--neon-blue); }
+
+.mix-btn {
+  background: var(--neon-purple); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold;
+}
+
+/* --- ORBITAL BOXES --- */
+.orbital-row {
+  display: flex; align-items: center; margin-bottom: 8px;
+  background: rgba(255,255,255,0.05); padding: 5px; border-radius: 5px;
+}
+.orb-label { width: 30px; font-weight: bold; color: #aaa; font-size: 0.8rem; }
+.orb-box {
+  width: 25px; height: 25px; border: 1px solid #555; margin-right: 3px;
+  display: flex; justify-content: center; align-items: center;
+  color: var(--neon-green); background: black; font-size: 0.9rem;
+}
+
+/* --- BONDING LAB --- */
+.bonding-stage {
+  position: relative; width: 100%; height: 100%;
+  background: radial-gradient(circle, #222, #000);
+}
+.atom-drag-target {
+  width: 120px; height: 120px; border: 2px dashed rgba(255,255,255,0.3);
+  border-radius: 50%; display: flex; justify-content: center; align-items: center;
+  position: absolute; color: white; background: rgba(0,0,0,0.5);
+}
+
+/* --- TREND CHALLENGE --- */
+.challenge-card {
+  width: 200px; height: 250px;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid var(--glass-border);
+  border-radius: 20px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  cursor: pointer; transition: 0.3s;
+}
+.challenge-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--neon-blue);
+  transform: scale(1.05);
+}
+.atom-icon {
+  width: 100px; height: 100px;
+  background: radial-gradient(circle at 30% 30%, #fff, #444);
+  border-radius: 50%; color: black;
+  font-family: 'Orbitron'; font-size: 2rem; font-weight: bold;
+  display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 5px 15px black; margin-bottom: 20px;
+}
+.stat-row {
+  display: flex; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 5px 0; font-size: 0.9rem; color: #ddd;
+}
+.overlay-info {
+  position: absolute; bottom: 20px; width: 100%;
+  text-align: center; color: rgba(255,255,255,0.6);
+  font-size: 0.8rem; pointer-events: none;
+}
+/* src/styles/global.css Additions */
+
+/* REACTION INPUTS */
+.coeff-input input {
+  width: 40px; height: 40px;
+  background: black; border: 1px solid var(--neon-blue);
+  color: white; font-size: 1.2rem; text-align: center;
+  border-radius: 5px; margin-right: 5px;
+}
+
+/* BONDING ANIMATIONS */
+.atom-visual {
+  position: absolute; top: 50%; transform: translate(-50%, -50%); transition: all 1s ease;
+}
+
+/* Covalent: Atoms move closer */
+.merge-right { left: 45% !important; }
+.merge-left { left: 55% !important; }
+
+/* Ionic: Electron flies */
+.electron-transfer {
+  position: absolute; top: 50%; left: 30%; width: 15px; height: 15px;
+  background: yellow; border-radius: 50%; box-shadow: 0 0 10px yellow;
+  animation: flyElectron 1s forwards;
+}
+@keyframes flyElectron {
+  0% { left: 30%; opacity: 1; }
+  100% { left: 70%; opacity: 0; }
+}
+
+/* Covalent: Cloud appears */
+.shared-cloud {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 180px; height: 100px;
+  background: rgba(0, 243, 255, 0.2);
+  border-radius: 50px;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+  animation: pulseCloud 2s infinite;
+}
+@keyframes pulseCloud {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+}
+.lab-container { display: flex; height: 100vh; background: #020205; color: white; font-family: 'Orbitron', sans-serif; }
+.sidebar { width: 300px; padding: 20px; border-right: 1px solid #1a1a2e; z-index: 10; }
+.viewport { flex-grow: 1; position: relative; }
+.neon-text { color: #00f3ff; text-shadow: 0 0 10px #00f3ff; margin-bottom: 30px; }
+.nav-btn { width: 100%; padding: 12px; margin-bottom: 10px; background: #0a0a1a; border: 1px solid #222; color: #888; cursor: pointer; transition: 0.3s; }
+.nav-btn.active { border-color: #00f3ff; color: #00f3ff; background: rgba(0, 243, 255, 0.05); }
+.atom-tag { background: rgba(0,0,0,0.8); border: 1px solid #00f3ff; padding: 5px 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px; }
+.charge-badge { background: #00f3ff; color: black; font-size: 0.7rem; padding: 2px 4px; border-radius: 3px; font-weight: bold; }
+.progress-bar { position: absolute; bottom: 40px; left: 10%; width: 80%; height: 6px; background: #111; border-radius: 3px; }
+.progress-bar .fill { height: 100%; background: #00f3ff; box-shadow: 0 0 15px #00f3ff; transition: width 0.1s linear; }
